@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-gold: #d4af37;
+  --color-gold-dark: #c9a227;
+  --color-electric-blue: #3b82f6;
+  --color-electric-blue-light: #60a5fa;
+  --color-charcoal: #141414;
+  --color-charcoal-dark: #0a0a0a;
+  --color-card: #1a1a1a;
+  --color-text: #fafafa;
+  --color-text-muted: #a1a1aa;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-charcoal-dark text-zinc-100 antialiased;
+  background-color: var(--color-charcoal-dark);
+}
+
+@layer utilities {
+  .glass {
+    @apply backdrop-blur-xl bg-white/[0.05] border border-white/10;
+  }
+  .glass-card {
+    @apply rounded-2xl backdrop-blur-xl bg-charcoal-card/80 border border-white/10;
+  }
+}
+
+/* Trust logos carousel */
+@keyframes trust-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-trust-scroll {
+  animation: trust-scroll 35s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-trust-scroll {
+    animation: none;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

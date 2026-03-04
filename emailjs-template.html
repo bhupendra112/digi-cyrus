@@ -1,0 +1,42 @@
+<!--
+  EMAILJS DASHBOARD TEMPLATE
+  =========================
+  1. Go to https://dashboard.emailjs.com → Email Templates
+  2. Edit template_t9irjif (or create one and use its ID in ContactForm.tsx)
+  3. Set "To Email" to your receiving address (e.g. bhupendra.gupta@digicyrus.in)
+  4. Paste the content below into the HTML / Body section.
+  5. Template variables used by the contact form:
+     - {{to_name}}   = "Digi Cyrus" (recipient)
+     - {{from_name}} = Sender's name
+     - {{from_email}}= Sender's email (for reply)
+     - {{phone}}     = Sender's phone
+     - {{business_type}} = Startup / SME / D2C etc.
+     - {{message}}   = Full message (includes phone + business + message text)
+-->
+
+<p>Hello <strong>{{to_name}}</strong>,</p>
+<p>You have a new contact form submission from your website.</p>
+
+<table style="width: 100%; max-width: 560px; border-collapse: collapse; margin: 16px 0; font-family: sans-serif;">
+  <tr>
+    <td style="padding: 8px 0; color: #666;">From</td>
+    <td style="padding: 8px 0;"><strong>{{from_name}}</strong></td>
+  </tr>
+  <tr>
+    <td style="padding: 8px 0; color: #666;">Email</td>
+    <td style="padding: 8px 0;"><a href="mailto:{{from_email}}">{{from_email}}</a></td>
+  </tr>
+  <tr>
+    <td style="padding: 8px 0; color: #666;">Phone</td>
+    <td style="padding: 8px 0;">{{phone}}</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px 0; color: #666;">Business type</td>
+    <td style="padding: 8px 0;">{{business_type}}</td>
+  </tr>
+</table>
+
+<p style="margin-top: 16px; color: #333;">Message:</p>
+<p style="padding: 12px 16px; border-left: 4px solid #d4af37; background: #f8f8f8; font-style: italic; white-space: pre-line;">{{message}}</p>
+
+<p style="margin-top: 24px; color: #666;">— Digi Cyrus contact form</p>

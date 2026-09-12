@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 type ButtonProps = {
   children: React.ReactNode;
   href?: string;
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "dark" | "inverse" | "inverseOutline";
   className?: string;
   onClick?: () => void;
   type?: "button" | "submit";
@@ -25,31 +25,25 @@ export function Button({
   disabled = false,
 }: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-charcoal-dark";
+    "inline-flex items-center justify-center rounded-full px-8 py-3.5 text-[15px] font-medium transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-black/10";
 
   const variants = {
-    primary:
-      "bg-gradient-to-r from-gold to-electric-blue text-white shadow-glow hover:shadow-glow-lg hover:scale-[1.02]",
-    secondary:
-      "border border-white/20 bg-white/5 text-white hover:border-gold/50 hover:bg-white/10",
-    ghost: "text-zinc-300 hover:text-white hover:bg-white/5",
+    primary: "bg-black text-white hover:scale-105 hover:bg-gray-900",
+    secondary: "border border-gray-300 bg-white text-black hover:scale-105 hover:bg-gray-100",
+    ghost: "text-zinc-500 hover:text-black hover:bg-black/5",
+    dark: "bg-black text-white hover:scale-105 hover:bg-gray-900",
+    inverse: "bg-white text-black hover:bg-zinc-100",
+    inverseOutline: "border-2 border-white bg-transparent text-white hover:bg-white hover:text-black",
   };
 
   const width = fullWidth ? "w-full sm:w-auto" : "";
   const disabledClass = disabled ? "opacity-60 cursor-not-allowed" : "";
   const classes = `${base} ${variants[variant]} ${width} ${disabledClass} ${className}`;
 
-  const motionProps = {
-    whileHover: { scale: variant === "primary" ? 1.02 : 1 },
-    whileTap: { scale: 0.98 },
-  };
-
   if (href && !disabled) {
     return (
       <Link href={href} className={classes}>
-        <motion.span {...motionProps} className="inline-block">
-          {children}
-        </motion.span>
+        {children}
       </Link>
     );
   }
@@ -60,7 +54,7 @@ export function Button({
       onClick={onClick}
       className={classes}
       disabled={disabled}
-      {...motionProps}
+      whileTap={{ scale: 0.98 }}
     >
       {children}
     </motion.button>

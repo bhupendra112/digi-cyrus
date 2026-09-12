@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card } from "@/components/ui/Card";
+import { SectionPill } from "@/components/ui/SectionPill";
 import { VIDEO_TESTIMONIALS } from "@/lib/constants";
 
 function getYoutubeEmbedId(url: string): string | null {
@@ -24,7 +24,7 @@ function getYoutubeEmbedId(url: string): string | null {
 
 export function Testimonials() {
   return (
-    <section className="py-20 sm:py-28">
+    <section className="bg-white py-20 text-black sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -32,15 +32,11 @@ export function Testimonials() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Video Testimonials
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-zinc-400">
-            Hear from brands we&apos;ve helped grow. Trusted by Indian startups and businesses.
-          </p>
+          <SectionPill>Client Testimonials</SectionPill>
+          <h2 className="mt-6 fd-section">Happy Clients Testimonials</h2>
         </motion.div>
 
-        <div className="mt-16 grid gap-8 md:grid-cols-2">
+        <div className="mt-14 flex justify-center gap-5 overflow-x-auto pb-2">
           {VIDEO_TESTIMONIALS.map((t, i) => {
             const rawId = getYoutubeEmbedId(t.youtubeUrl);
             const videoId = rawId && rawId.length === 11 ? rawId : null;
@@ -51,9 +47,10 @@ export function Testimonials() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
+                className="w-[220px] shrink-0 sm:w-[240px]"
               >
-                <Card>
-                  <div className="aspect-video w-full overflow-hidden rounded-xl bg-black">
+                <div className="relative overflow-hidden rounded-2xl bg-black shadow-lg">
+                  <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
                     {videoId ? (
                       <iframe
                         src={`https://www.youtube.com/embed/${videoId}?rel=0`}
@@ -67,16 +64,16 @@ export function Testimonials() {
                         href={t.youtubeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex h-full items-center justify-center text-zinc-500 hover:text-gold"
+                        className="flex h-full items-center justify-center text-zinc-400"
                       >
                         Watch on YouTube
                       </a>
                     )}
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-3 pb-4 pt-10 text-white">
+                      <p className="text-sm font-semibold">{t.name}</p>
+                    </div>
                   </div>
-                  <div className="mt-4 border-t border-white/10 pt-4">
-                    <p className="font-semibold text-white">{t.name}</p>
-                  </div>
-                </Card>
+                </div>
               </motion.div>
             );
           })}

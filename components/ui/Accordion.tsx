@@ -12,31 +12,44 @@ export type AccordionItem = {
 type AccordionProps = {
   items: AccordionItem[];
   className?: string;
+  variant?: "light" | "dark";
 };
 
-export function Accordion({ items, className = "" }: AccordionProps) {
+export function Accordion({ items, className = "", variant = "light" }: AccordionProps) {
   const [openId, setOpenId] = useState<string | null>(null);
+  const isLight = variant === "light";
 
   return (
-    <div className={`space-y-2 ${className}`}>
+    <div className={`space-y-3 ${className}`}>
       {items.map((item) => {
         const isOpen = openId === item.id;
         return (
           <div
             key={item.id}
-            className="glass-card overflow-hidden"
+            className={`overflow-hidden rounded-2xl ${
+              isLight ? "bg-white shadow-sm ring-1 ring-gray-100" : "glass-card"
+            }`}
           >
             <button
               type="button"
               onClick={() => setOpenId(isOpen ? null : item.id)}
-              className="flex w-full items-center justify-between px-6 py-4 text-left transition hover:bg-white/5"
+              className="flex w-full items-center justify-between px-4 py-4 text-left"
               aria-expanded={isOpen}
               aria-controls={`accordion-${item.id}`}
               id={`accordion-heading-${item.id}`}
             >
-              <span className="font-medium text-white">{item.question}</span>
+              <span className="flex items-start gap-3 font-medium">
+                <span
+                  className={`mt-1 h-5 w-0.5 shrink-0 rounded-full ${
+                    isLight ? "bg-black" : "bg-white"
+                  }`}
+                />
+                <span className={isLight ? "text-gray-800" : "text-white"}>{item.question}</span>
+              </span>
               <span
-                className={`ml-2 shrink-0 text-gold transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                className={`ml-2 shrink-0 transition-transform duration-200 ${
+                  isOpen ? "rotate-180" : ""
+                } ${isLight ? "text-zinc-400" : "text-zinc-400"}`}
                 aria-hidden
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -56,7 +69,11 @@ export function Accordion({ items, className = "" }: AccordionProps) {
                   transition={{ duration: 0.2 }}
                   className="overflow-hidden"
                 >
-                  <div className="border-t border-white/10 px-6 py-4 text-zinc-400">
+                  <div
+                    className={`px-4 pb-4 pl-8 font-poppins text-sm ${
+                      isLight ? "text-zinc-600" : "text-zinc-400"
+                    }`}
+                  >
                     {item.answer}
                   </div>
                 </motion.div>

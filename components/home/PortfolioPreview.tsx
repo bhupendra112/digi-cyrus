@@ -1,19 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import {
-  PORTFOLIO_ITEMS,
-  PORTFOLIO_CATEGORIES,
-} from "@/lib/constants";
+import { PORTFOLIO_ITEMS } from "@/lib/constants";
 
-const CATEGORY_LABEL: Record<string, string> = Object.fromEntries(
-  PORTFOLIO_CATEGORIES.map((c) => [c.id, c.label])
-);
-
-/** Featured items for home: one per distinct project (no duplicate Dailiyo entries), mix of website + app */
 const FEATURED_IDS = [
   "skill-tallent",
   "dailiyo-website",
@@ -29,7 +21,7 @@ export function PortfolioPreview() {
   );
 
   return (
-    <section className="py-20 sm:py-28">
+    <section id="work" className="bg-white py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -37,56 +29,47 @@ export function PortfolioPreview() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Our Work
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-zinc-400">
-            Websites, Android & iOS apps for Indian brands. Trusted by Skill Tallent, Dailiyo, Kumar Colonisers, KK Resorts, Love Lance Photography, MV Academy and more.
-          </p>
+          <h2 className="fd-section">Turning Visions Into Digital Reality</h2>
         </motion.div>
 
-        <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((project, i) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
             >
-              <Card className="group overflow-hidden">
-                <span className="text-xs font-medium uppercase tracking-wider text-gold">
-                  {CATEGORY_LABEL[project.category] ?? project.category}
-                </span>
-                <h3 className="mt-2 text-xl font-semibold text-white">
-                  {project.name}
-                </h3>
-                <p className="mt-1 text-sm text-zinc-500">{project.companyName}</p>
-                <p className="mt-2 text-sm text-zinc-400 line-clamp-2">
-                  {project.result}
-                </p>
-                <Link
-                  href="/portfolio"
-                  className="mt-6 inline-flex items-center text-sm font-medium text-gold transition hover:text-gold-light"
-                >
-                  View case study
-                  <span className="ml-1">→</span>
-                </Link>
-              </Card>
+              <Link
+                href="/portfolio"
+                className="group block overflow-hidden rounded-2xl bg-white p-5 text-black shadow-md ring-1 ring-gray-100 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+              >
+                {project.image && (
+                  <div className="relative aspect-[16/11] overflow-hidden rounded-xl">
+                    <Image
+                      src={project.image}
+                      alt={project.name}
+                      fill
+                      className="object-cover transition duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  </div>
+                )}
+                <div className="pt-4">
+                  <h3 className="text-lg font-semibold text-gray-900">{project.name}</h3>
+                  <p className="mt-1 font-poppins text-sm text-zinc-500 line-clamp-2">{project.result}</p>
+                </div>
+              </Link>
             </motion.div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-12 text-center"
-        >
+        <div className="mt-12 text-center">
           <Button href="/portfolio" variant="secondary">
-            View all projects
+            View All
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

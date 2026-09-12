@@ -1,219 +1,166 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Card } from "@/components/ui/Card";
-import {
-  type PortfolioItem,
-  PORTFOLIO_CATEGORIES,
-} from "@/lib/constants";
+import { useMemo, useState } from "react";
+import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
+import { SectionPill } from "@/components/ui/SectionPill";
+import { type PortfolioItem } from "@/lib/constants";
 
-type PortfolioGridProps = {
-  items?: PortfolioItem[];
-  categories?: readonly { id: PortfolioItem["category"]; label: string }[];
-};
+type Tab = "websites" | "applications";
 
-function LinkButton({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/5 px-3 py-1.5 text-sm font-medium text-zinc-300 transition hover:border-gold/40 hover:bg-gold/10 hover:text-gold"
-    >
-      {children}
-      <span className="text-gold">↗</span>
-    </a>
-  );
+function projectHighlights(project: PortfolioItem): string[] {
+  if (project.highlights && project.highlights.length > 0) {
+    return project.highlights.slice(0, 4);
+  }
+  return [project.problem, project.strategy, project.execution, project.result].filter(
+    (item): item is string => Boolean(item)
+  ).slice(0, 4);
 }
 
-export function PortfolioGrid({
-  items = [],
-  categories = PORTFOLIO_CATEGORIES,
-}: PortfolioGridProps) {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+function cta(project: PortfolioItem, tab: Tab) {
+  if (tab === "applications") {
+    if (project.links.playStore) {
+      return { href: project.links.playStore, label: "View App" };
+    }
+    if (project.links.appStore) {
+      return { href: project.links.appStore, label: "View App" };
+    }
+  }
+  if (project.links.website) {
+    return { href: project.links.website, label: "View Website" };
+  }
+  if (project.links.playStore) {
+    return { href: project.links.playStore, label: "View App" };
+  }
+  if (project.links.appStore) {
+    return { href: project.links.appStore, label: "View App" };
+  }
+  if (project.links.figma) {
+    return { href: project.links.figma, label: "View Design" };
+  }
+  return null;
+}
 
-  const byCategory = categories.map((cat) => ({
-    ...cat,
-    items: items.filter((p) => p.category === cat.id),
-  }));
+export function PortfolioGrid({ items = [] }: { items?: PortfolioItem[] }) {
+  const [tab, setTab] = useState<Tab>("websites");
+
+  const websites = useMemo(
+    () => items.filter((item) => item.category === "website"),
+    [items]
+  );
+
+  const applications = useMemo(() => {
+    const apps = items.filter(
+      (item) => item.category === "playStoreApp" || item.category === "appStoreApp"
+    );
+    const seen = new Set<string>();
+    return apps.filter((item) => {
+      if (seen.has(item.companyName)) return false;
+      seen.add(item.companyName);
+      return true;
+    });
+  }, [items]);
+
+  const shown = tab === "websites" ? websites : applications;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="space-y-14">
-        {byCategory.map(({ id: categoryId, label: categoryLabel, items: categoryItems }) => {
-          if (categoryItems.length === 0) return null;
-          return (
-            <motion.section
-              key={categoryId}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+    <section className="bg-white py-16 sm:py-24">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <SectionPill>Projects</SectionPill>
+          <h2 className="mt-5 fd-section">Our Top Projects</h2>
+          <div className="mt-8 inline-flex rounded-full border border-gray-200 bg-white p-1">
+            <button
+              type="button"
+              onClick={() => setTab("websites")}
+              className={`rounded-full px-5 py-2 text-sm font-medium transition ${
+                tab === "websites" ? "bg-black text-white" : "text-gray-600 hover:text-black"
+              }`}
             >
-              <h2 className="mb-6 text-xl font-semibold uppercase tracking-wider text-zinc-400 sm:text-2xl">
-                {categoryLabel}
-              </h2>
-              <div className="space-y-6">
-                {categoryItems.map((project, i) => {
-                  const isExpanded = expandedId === project.id;
-                  const hasDetail =
-                    project.problem ||
-                    project.strategy ||
-                    project.execution ||
-                    (project.results && Object.keys(project.results).length > 0) ||
-                    (project.tech && project.tech.length > 0);
-                  return (
-                    <motion.div
-                      key={project.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.05 }}
-                    >
-                      <Card hover={false} className="overflow-hidden">
-                        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                          <div>
-                            <p className="text-xs font-medium uppercase tracking-wider text-gold">
-                              {project.companyName}
-                            </p>
-                            <h3 className="mt-1 text-xl font-semibold text-white sm:text-2xl">
-                              {project.name}
-                            </h3>
-                            <p className="mt-2 text-zinc-400">{project.result}</p>
-                            <div className="mt-4 flex flex-wrap gap-2">
-                              {project.links.website && (
-                                <LinkButton href={project.links.website}>
-                                  Visit website
-                                </LinkButton>
-                              )}
-                              {project.links.playStore && (
-                                <LinkButton href={project.links.playStore}>
-                                  Play Store
-                                </LinkButton>
-                              )}
-                              {project.links.appStore && (
-                                <LinkButton href={project.links.appStore}>
-                                  App Store
-                                </LinkButton>
-                              )}
-                              {project.links.figma && (
-                                <LinkButton href={project.links.figma}>
-                                  Figma
-                                </LinkButton>
-                              )}
-                            </div>
-                          </div>
-                          {hasDetail && (
-                            <button
-                              type="button"
-                              onClick={() =>
-                                setExpandedId(isExpanded ? null : project.id)
-                              }
-                              className="shrink-0 text-sm font-medium text-gold hover:text-gold-light"
-                            >
-                              {isExpanded ? "Show less" : "View case study"}
-                              <span
-                                className={`ml-1 inline-block transition-transform ${isExpanded ? "rotate-180" : ""}`}
-                              >
-                                ↓
-                              </span>
-                            </button>
-                          )}
-                        </div>
+              Websites
+            </button>
+            <button
+              type="button"
+              onClick={() => setTab("applications")}
+              className={`rounded-full px-5 py-2 text-sm font-medium transition ${
+                tab === "applications" ? "bg-black text-white" : "text-gray-600 hover:text-black"
+              }`}
+            >
+              Applications
+            </button>
+          </div>
+        </div>
 
-                        <AnimatePresence initial={false}>
-                          {hasDetail && isExpanded && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.25 }}
-                              className="overflow-hidden"
-                            >
-                              <div className="mt-8 border-t border-white/10 pt-8">
-                                <div className="grid gap-6 sm:grid-cols-2">
-                                  {project.problem && (
-                                    <div>
-                                      <h4 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
-                                        Problem
-                                      </h4>
-                                      <p className="mt-1 text-zinc-300">
-                                        {project.problem}
-                                      </p>
-                                    </div>
-                                  )}
-                                  {project.strategy && (
-                                    <div>
-                                      <h4 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
-                                        Strategy
-                                      </h4>
-                                      <p className="mt-1 text-zinc-300">
-                                        {project.strategy}
-                                      </p>
-                                    </div>
-                                  )}
-                                  {project.execution && (
-                                    <div>
-                                      <h4 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
-                                        Execution
-                                      </h4>
-                                      <p className="mt-1 text-zinc-300">
-                                        {project.execution}
-                                      </p>
-                                    </div>
-                                  )}
-                                </div>
-                                {project.results &&
-                                  (project.results.traffic ||
-                                    project.results.leads ||
-                                    project.results.sales) && (
-                                  <div className="mt-6 flex flex-wrap gap-4">
-                                    {project.results.traffic && (
-                                      <span className="rounded-lg bg-gold/10 px-3 py-1.5 text-sm font-medium text-gold">
-                                        Traffic: {project.results.traffic}
-                                      </span>
-                                    )}
-                                    {project.results.leads && (
-                                      <span className="rounded-lg bg-gold/10 px-3 py-1.5 text-sm font-medium text-gold">
-                                        Leads: {project.results.leads}
-                                      </span>
-                                    )}
-                                    {project.results.sales && (
-                                      <span className="rounded-lg bg-gold/10 px-3 py-1.5 text-sm font-medium text-gold">
-                                        Sales: {project.results.sales}
-                                      </span>
-                                    )}
-                                  </div>
-                                )}
-                                {project.tech && project.tech.length > 0 && (
-                                  <div className="mt-4">
-                                    <h4 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
-                                      Tech stack
-                                    </h4>
-                                    <p className="mt-1 text-zinc-400">
-                                      {project.tech.join(", ")}
-                                    </p>
-                                  </div>
-                                )}
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </Card>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.section>
-          );
-        })}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={tab}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.3 }}
+            className="mt-16 space-y-20"
+          >
+            {shown.map((project, i) => {
+              const imageLeft = i % 2 === 0;
+              const points = projectHighlights(project);
+              const action = cta(project, tab);
+
+              return (
+                <motion.article
+                  key={project.id}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.45 }}
+                  className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
+                >
+                  <div className={imageLeft ? "lg:order-1" : "lg:order-2"}>
+                    <div className="rounded-[1.75rem] bg-[#f3f3f4] p-4 sm:p-6">
+                      {project.image && (
+                        <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-white">
+                          <Image
+                            src={project.image}
+                            alt={project.name}
+                            fill
+                            className="object-cover object-top"
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className={imageLeft ? "lg:order-2" : "lg:order-1"}>
+                    <h3 className="text-2xl font-semibold text-gray-900 sm:text-3xl">
+                      {project.name}
+                    </h3>
+                    <ol className="mt-6 space-y-3">
+                      {points.map((point, index) => (
+                        <li key={point} className="flex gap-3 font-poppins text-sm leading-6 text-gray-600 sm:text-base">
+                          <span className="w-7 shrink-0 text-xs font-semibold text-gray-400">
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ol>
+                    {action && (
+                      <a
+                        href={action.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-8 inline-flex rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:scale-105 hover:bg-gray-900"
+                      >
+                        {action.label}
+                      </a>
+                    )}
+                  </div>
+                </motion.article>
+              );
+            })}
+          </motion.div>
+        </AnimatePresence>
       </div>
-    </div>
+    </section>
   );
 }

@@ -9,17 +9,27 @@ export const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/portfolio", label: "Portfolio" },
-  { href: "/about", label: "About" },
+  { href: "/about", label: "About Us" },
   { href: "/marketing", label: "Marketing" },
   { href: "/contact", label: "Contact" },
 ];
 
+export const NAV_LEFT = [
+  { href: "/services", label: "Services" },
+  { href: "/portfolio", label: "Portfolio" },
+];
+
+export const NAV_RIGHT = [
+  { href: "/about", label: "About Us" },
+  { href: "/contact", label: "Contact Us" },
+];
+
 export const HERO = {
-  headline: "Building Digital Assets That Dominate Markets",
+  headline: "Build your Brand with Digi Cyrus",
   subheadline:
     "We craft powerful websites, high-performance apps, and growth-driven marketing systems for ambitious Indian brands.",
-  primaryCta: "Start Your Project",
-  secondaryCta: "View Our Work",
+  primaryCta: "Let's Explore",
+  secondaryCta: "Contact Us",
 };
 
 export const TRUST = {
@@ -42,28 +52,20 @@ export const TRUST = {
 
 export const CORE_SERVICES = [
   {
-    id: "website",
-    title: "Website Development",
+    id: "custom",
+    title: "Custom Development",
     description:
-      "Custom high-converting websites built for performance and scale.",
-    href: "/services#website",
-    icon: "Globe",
-  },
-  {
-    id: "app",
-    title: "App Development",
-    description:
-      "Android & iOS applications designed for seamless user experience.",
-    href: "/services#app",
-    icon: "Smartphone",
+      "Websites and native apps built around your brand, workflows, and growth goals.",
+    href: "/services",
+    image: "/images/portfolio/skill-tallent-site.png",
   },
   {
     id: "marketing",
     title: "Digital Marketing",
     description:
-      "Data-driven marketing strategies that increase leads, sales, and brand visibility.",
+      "Instagram, reels, funnels, and paid campaigns that turn attention into booked work.",
     href: "/marketing",
-    icon: "TrendingUp",
+    image: "/images/marketing/trinity-reel.png",
   },
 ];
 
@@ -159,9 +161,9 @@ export const CONTACT = {
   whatsapp: "+918319322854",
   whatsappUrl: "https://wa.me/918319322854",
   social: {
-    linkedin: "https://www.linkedin.com/in/engineerbhupendra?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    linkedin: "https://www.linkedin.com/in/engineerbhupendra/",
     twitter: "https://x.com/Bhupend85039267",
-    instagram: "https://www.instagram.com/bhupendratech?igsh=MzVlOTI5Y3l2ZjE0",
+    instagram: "https://www.instagram.com/digi__cyrus/",
   },
   mapEmbedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3663.023!2d75.8578!3d22.7196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fcad1b4101b9%3A0x9bedc1728b2f64b!2sVijay%20Nagar%2C%20Indore%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1",
@@ -182,6 +184,13 @@ export const SERVICES_DETAIL = {
     subtitle: "Websites that convert and scale",
     description:
       "We build custom websites that perform. From lead-gen sites to full e-commerce platforms, every project is optimized for speed, SEO, and conversion. Built for Indian businesses ready to dominate online.",
+    image: "/images/portfolio/skill-tallent-site.png",
+    href: "/contact",
+    points: [
+      "Launch a branded website with landing pages, e-commerce, or a custom platform — everything you need to sell and generate leads online.",
+      "Mobile-first, SEO-ready builds with fast load times and secure hosting from day one.",
+      "Scalable architecture so the site grows with your business, not against it.",
+    ],
     features: [
       "Business websites & landing pages",
       "E-commerce websites (custom & headless)",
@@ -199,6 +208,13 @@ export const SERVICES_DETAIL = {
     subtitle: "Native and cross-platform apps that users love",
     description:
       "We design and develop Android, iOS, and cross-platform applications that deliver seamless experiences. From MVP to scale, we build apps that retain users and drive business outcomes.",
+    image: "/images/portfolio/mv-academy-app.png",
+    href: "/contact",
+    points: [
+      "Android, iOS, and cross-platform apps with native performance where it matters.",
+      "Clean UI/UX, push notifications, analytics, and the integrations your product needs.",
+      "From MVP to Play Store and App Store submission — we stay through launch.",
+    ],
     features: [
       "Android apps (Kotlin / Java)",
       "iOS apps (Swift)",
@@ -216,6 +232,13 @@ export const SERVICES_DETAIL = {
     subtitle: "Growth that shows on the bottom line",
     description:
       "Data-driven marketing that increases leads, sales, and brand visibility. We build funnels, run paid campaigns, and optimize for real ROI—so you see results, not just activity.",
+    image: "/images/marketing/trinity-reel.png",
+    href: "/marketing",
+    points: [
+      "Performance ads, SEO, and social campaigns tied to real leads and revenue.",
+      "Funnels and Instagram growth systems built for Indian startups and local brands.",
+      "Transparent reporting so you see ROI — not just activity.",
+    ],
     features: [
       "Performance marketing & paid ads",
       "SEO (on-page, technical, content)",
@@ -255,6 +278,8 @@ export interface PortfolioItem {
   companyName: string;
   result: string;
   links: PortfolioItemLinks;
+  image?: string;
+  highlights?: string[];
   /** Optional case study detail */
   problem?: string;
   strategy?: string;
@@ -270,6 +295,13 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     name: "Skill Tallent & Staffing Solution",
     companyName: "Skill Tallent",
     result: "Recruitment and staffing solution website for talent acquisition and placement.",
+    image: "/images/portfolio/skill-tallent-site.png",
+    highlights: [
+      "Professional recruitment site for talent acquisition and placement.",
+      "Clear service offerings for employers and candidates.",
+      "Trust-focused design with easy contact and enquiry flows.",
+      "Fully responsive build for desktop and mobile hiring teams.",
+    ],
     links: { website: "https://www.skillsetstaffingsolutions.com/" },
     problem: "Needed a professional web presence for staffing and recruitment services.",
     strategy: "Clean, trust-focused design with clear service offerings and contact flows.",
@@ -282,6 +314,13 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     name: "Dailiyo",
     companyName: "Dailiyo",
     result: "Brand website for the Dailiyo app—information and download links.",
+    image: "/images/portfolio/dailiyo-site.png",
+    highlights: [
+      "Brand website for the Dailiyo app with clear download paths.",
+      "Unified messaging across web, Play Store, and App Store.",
+      "Prominent store badges so users can install in one tap.",
+      "Responsive marketing layout built for fast load times.",
+    ],
     links: {
       website: "https://dailiyo.in",
       playStore: "https://play.google.com/store/apps/details?id=com.dailiyo",
@@ -295,15 +334,22 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
     id: "dailiyo-play",
     category: "playStoreApp",
-    name: "Dailiyo (Android)",
+    name: "Dailiyo",
     companyName: "Dailiyo",
-    result: "Dailiyo app on Google Play for Android users.",
+    result: "Dailiyo app on Google Play and the App Store.",
+    image: "/images/portfolio/dailiyo-site.png",
+    highlights: [
+      "Daily-use app available on Google Play and the App Store.",
+      "Native Android and iOS experiences for Dailiyo users.",
+      "Easy discovery from the marketing site and store listings.",
+      "Built for install, retention, and everyday use.",
+    ],
     links: {
       website: "https://dailiyo.in",
       playStore: "https://play.google.com/store/apps/details?id=com.dailiyo",
       appStore: "https://apps.apple.com/in/app/dailiyo/id6759209781",
     },
-    tech: ["Android", "Kotlin/Java"],
+    tech: ["Android", "iOS"],
   },
   {
     id: "dailiyo-apple",
@@ -311,6 +357,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     name: "Dailiyo (iOS)",
     companyName: "Dailiyo",
     result: "Dailiyo app on the App Store for iPhone and iPad users.",
+    image: "/images/portfolio/dailiyo-site.png",
     links: {
       website: "https://dailiyo.in",
       playStore: "https://play.google.com/store/apps/details?id=com.dailiyo",
@@ -324,6 +371,13 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     name: "Kumar Colonisers",
     companyName: "Kumar Colonisers",
     result: "Real estate internal operation management platform for Kumar Colonisers.",
+    image: "/images/portfolio/kumar-colonisers-site.png",
+    highlights: [
+      "Internal operations platform for real estate management.",
+      "Streamlined dashboards for property and team workflows.",
+      "Custom web app built around coloniser operations.",
+      "Secure, scalable stack for day-to-day internal use.",
+    ],
     links: { website: "https://kumarcolonizers.in" },
     problem: "Needed an internal operations and property management system.",
     strategy: "Streamlined dashboard and workflows for real estate operations.",
@@ -336,6 +390,13 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     name: "KK Resorts",
     companyName: "KK Resorts",
     result: "Real estate and resort presence for KK Resorts.",
+    image: "/images/portfolio/kk-resorts-site.png",
+    highlights: [
+      "Property-focused website for resorts and real estate.",
+      "Clear listings with enquiry and contact CTAs.",
+      "Responsive design for guests browsing on mobile.",
+      "Built to showcase villas and convert site visits.",
+    ],
     links: { website: "https://kkresorts.co.in" },
     problem: "Required a professional site to showcase properties and resort offerings.",
     strategy: "Property-focused layout with clear CTAs and contact options.",
@@ -348,6 +409,13 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     name: "Love Lance Photography",
     companyName: "Love Lance Photography",
     result: "Portfolio and booking website for professional photography services.",
+    image: "/images/portfolio/love-lance-site.png",
+    highlights: [
+      "Visual-first photography portfolio and booking site.",
+      "Gallery layout that puts the work front and centre.",
+      "Lead capture and contact flows for new bookings.",
+      "Modern Next.js site, live and mobile-ready.",
+    ],
     links: { website: "https://love-lance-photography.vercel.app" },
     problem: "Photographer needed a striking portfolio and way to capture leads.",
     strategy: "Visual-first design with gallery and contact/booking focus.",
@@ -360,6 +428,13 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     name: "MV Academy",
     companyName: "MV Academy",
     result: "Educational app on Play Store for MV Academy—learning and courses.",
+    image: "/images/portfolio/mv-academy-app.png",
+    highlights: [
+      "Educational app for MV Academy students and courses.",
+      "Mobile access to learning content on the go.",
+      "Student-friendly flows for course access and progress.",
+      "Published on Google Play for Android learners.",
+    ],
     links: {
       playStore: "https://play.google.com/store/apps/details?id=co.amy.bujgf",
     },
@@ -415,31 +490,131 @@ export const ABOUT = {
 };
 
 export const MARKETING_PAGE = {
-  headline: "Marketing That Delivers Real ROI",
+  headline: "Digital Marketing for Startups",
   subheadline:
-    "We don't just run campaigns—we build growth systems. Funnels, leads, and analytics that tie directly to your revenue.",
-  sections: [
-    {
-      title: "Growth Strategy",
-      description:
-        "We align marketing with your business goals. Whether you need awareness, leads, or sales, we design a strategy that fits your stage and budget.",
-    },
-    {
-      title: "Funnel Building",
-      description:
-        "From first touch to conversion, we design and optimize funnels that capture leads and turn them into customers. Landing pages, emails, and retargeting—all connected.",
-    },
-    {
-      title: "Lead Generation System",
-      description:
-        "Paid ads, SEO, and content working together to fill your pipeline. We focus on quality leads that convert, not just vanity metrics.",
-    },
-    {
-      title: "Analytics & Reporting",
-      description:
-        "Clear dashboards and regular reports. You always know what's working, what's not, and where to invest next. No black boxes.",
-    },
-  ],
-  cta: "Get Growth Plan",
-  ctaHref: "/contact",
+    "Skip the wasted spend and guesswork. Our growth systems help you go to market faster without compromising on quality.",
 };
+
+export const MARKETING_PRODUCTS = [
+  {
+    id: "instagram-growth",
+    title: "Instagram Growth System",
+    image: "/images/marketing/kk-resort-reel.png",
+    href: "/contact",
+    points: [
+      "Reels, stories, and campaign creatives built to grow local brands on Instagram — from hospitality villas to education.",
+      "Content calendars, festival drops, and offer posts designed to turn attention into enquiries and bookings.",
+      "Profile, bio, and highlight systems that make your page feel like a product, not a dump of photos.",
+    ],
+  },
+  {
+    id: "performance-funnels",
+    title: "Performance Ads & Funnels",
+    image: "/images/marketing/trinity-reel.png",
+    href: "/contact",
+    points: [
+      "Landing pages, retargeting, and ad creatives connected so the first tap can become a booked lead.",
+      "Campaigns structured around real business goals — awareness, site visits, or sales — not vanity reach.",
+      "Creative testing for property, pharmacy, and local service offers so spend goes to what converts.",
+    ],
+  },
+  {
+    id: "lead-generation",
+    title: "Lead Generation Engine",
+    image: "/images/marketing/zippymeds-reel.png",
+    href: "/contact",
+    points: [
+      "Paid ads, SEO, and content working together to fill your pipeline with people who can actually buy.",
+      "Offer-led creatives and trust posts that qualify interest before it hits your WhatsApp.",
+      "We focus on lead quality and cost per enquiry — not likes, views, or empty follower counts.",
+    ],
+  },
+  {
+    id: "brand-content",
+    title: "Brand Content Studio",
+    image: "/images/marketing/chihar-reel.png",
+    href: "/contact",
+    points: [
+      "Category storytelling for farms, schools, pharmacies, and real estate — shot and edited for Instagram.",
+      "Product education, founder stories, and customer proof that builds trust in Indian markets.",
+      "A repeatable content system so you are not starting from a blank page every week.",
+    ],
+  },
+  {
+    id: "analytics",
+    title: "Analytics & Reporting",
+    image: "/images/marketing/mv-academy-reel.png",
+    href: "/contact",
+    points: [
+      "Clear dashboards and regular reports so you always know what is working and where to invest next.",
+      "Tracking from ad click to WhatsApp, form, or app install — no black-box agencies.",
+      "Monthly reviews that turn numbers into the next set of creatives, offers, and budget calls.",
+    ],
+  },
+];
+
+export const MARKETING_CLIENTS = [
+  {
+    id: "kk-resort",
+    name: "KK Resorts",
+    handle: "@kk_resort.in",
+    url: "https://www.instagram.com/kk_resort.in",
+    tagline: "Luxury villa rentals · Sonkach",
+    description:
+      "Hospitality reels, festival campaigns, and booking creatives for KK Resorts villas on the Indore–Bhopal Highway.",
+    image: "/images/marketing/kk-resort-reel.png",
+  },
+  {
+    id: "zippymeds",
+    name: "ZippyMeds",
+    handle: "@zippymeds.enterprises",
+    url: "https://www.instagram.com/zippymeds.enterprises",
+    tagline: "Same medicine, better price",
+    description:
+      "Pharmacy offers, product kits, and trust-building content for genuine medicines at lower prices.",
+    image: "/images/marketing/zippymeds-reel.png",
+  },
+  {
+    id: "trinity",
+    name: "Trinity Real Estate",
+    handle: "@official_trinity17",
+    url: "https://www.instagram.com/official_trinity17",
+    tagline: "Farmhouses · villas · land",
+    description:
+      "Property storytelling and lead-gen creatives for Trinity’s farmhouses and villa projects around Indore.",
+    image: "/images/marketing/trinity-reel.png",
+  },
+  {
+    id: "chihar",
+    name: "Chihar Group",
+    handle: "@chihar_group",
+    url: "https://www.instagram.com/chihar_group",
+    tagline: "Seeds & farming solutions",
+    description:
+      "Agri reels, farmer stories, and product education for hybrid seeds, fertilizers, and cattle feed.",
+    image: "/images/marketing/chihar-reel.png",
+  },
+  {
+    id: "mv-academy",
+    name: "MV Academy",
+    handle: "@itsmv_academy_official",
+    url: "https://www.instagram.com/itsmv_academy_official",
+    tagline: "Classes 9th to 12th",
+    description:
+      "Education branding and app discovery content for MV Academy’s smart learning programmes.",
+    image: "/images/marketing/mv-academy-reel.png",
+  },
+];
+
+export const PRODUCT_SHOWCASE = {
+  eyebrow: "Digi Cyrus",
+  title: "Streamline business with our flexible options",
+  headline: "Build your brand online. Grow it every day.",
+  image: "/images/portfolio/product-showcase.png",
+};
+
+export const MARQUEE_ITEMS = [
+  "Develop it Once",
+  "Develop it from Best",
+  "Build it to Scale",
+];

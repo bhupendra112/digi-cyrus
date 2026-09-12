@@ -12,29 +12,23 @@ const accordionItems = FAQ_ITEMS.map((item, i) => ({
 
 export function FAQ() {
   return (
-    <section className="border-t border-white/5 bg-charcoal py-20 sm:py-28">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+    <section className="bg-speckle py-20 text-black sm:py-28">
+      <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-start lg:px-8">
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center"
+          className="text-3xl font-normal leading-snug text-gray-900 sm:text-5xl"
         >
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Frequently Asked Questions
-          </h2>
-          <p className="mt-4 text-zinc-400">
-            Quick answers to common questions.
-          </p>
-        </motion.div>
-
+          Frequently Asked
+          <br /> Questions
+        </motion.h2>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12"
         >
-          <Accordion items={accordionItems} />
+          <Accordion items={accordionItems} variant="light" />
         </motion.div>
       </div>
     </section>

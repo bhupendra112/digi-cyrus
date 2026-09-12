@@ -1,25 +1,25 @@
 import { Hero } from "@/components/home/Hero";
-import { TrustIndicator } from "@/components/home/TrustIndicator";
 import { CoreServices } from "@/components/home/CoreServices";
-import { WhyDigiCyrus } from "@/components/home/WhyDigiCyrus";
+import { ProductShowcase } from "@/components/home/ProductShowcase";
+import { SocialPresence } from "@/components/home/SocialPresence";
 import { PortfolioPreview } from "@/components/home/PortfolioPreview";
-import { Process } from "@/components/home/Process";
+import { MovingMarquee } from "@/components/home/MovingMarquee";
 import { Testimonials } from "@/components/home/Testimonials";
+import { TeamShowcase } from "@/components/home/TeamShowcase";
 import { FAQ } from "@/components/home/FAQ";
-import { FinalCTA } from "@/components/home/FinalCTA";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <TrustIndicator />
       <CoreServices />
-      <WhyDigiCyrus />
+      <ProductShowcase />
+      <SocialPresence />
       <PortfolioPreview />
-      <Process />
+      <MovingMarquee />
       <Testimonials />
+      <TeamShowcase />
       <FAQ />
-      <FinalCTA />
     </>
   );
 }

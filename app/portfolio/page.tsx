@@ -1,22 +1,33 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/PageHero";
+import { MovingMarquee } from "@/components/home/MovingMarquee";
 import { PortfolioGrid } from "@/components/portfolio/PortfolioGrid";
-import { PORTFOLIO_ITEMS, PORTFOLIO_CATEGORIES } from "@/lib/constants";
+import { FAQ } from "@/components/home/FAQ";
+import { PORTFOLIO_ITEMS } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Portfolio",
   description:
-    "Websites, Play Store & App Store apps, and design. Real projects for Indian brands—Skill Tallent, Dailiyo, Kumar Colonisers, KK Resorts, Love Lance Photography, MV Academy.",
+    "Custom websites and apps built from scratch. Real projects for Indian brands—Skill Tallent, Dailiyo, Kumar Colonisers, KK Resorts, Love Lance Photography, MV Academy.",
 };
 
 export default function PortfolioPage() {
   return (
     <>
       <PageHero
-        title="Our Work"
-        subtitle="Websites, Android & iOS apps, and design for Indian startups and brands. Trusted by growing businesses."
+        tone="light"
+        orbs
+        title={
+          <>
+            Customized Development
+            <br /> From Scratch
+          </>
+        }
+        subtitle="We transform your unique ideas into powerful, scalable applications. Our team crafts tailor-made software solutions designed specifically for your business needs, from the first line of code to the final launch."
       />
-      <PortfolioGrid items={PORTFOLIO_ITEMS} categories={PORTFOLIO_CATEGORIES} />
+      <MovingMarquee />
+      <PortfolioGrid items={PORTFOLIO_ITEMS} />
+      <FAQ />
     </>
   );
 }

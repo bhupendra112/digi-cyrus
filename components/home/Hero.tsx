@@ -75,7 +75,7 @@ export function Hero() {
           <p className="text-sm font-medium text-gray-800">
             Trusted by{" "}
             <span className="bg-gradient-to-r from-sky-500 to-blue-600 bg-clip-text text-transparent">
-              100+
+              10k
             </span>{" "}
             Audience
           </p>

@@ -461,7 +461,8 @@ export const ABOUT = {
     {
       name: "Daulat Amkare",
       role: "Co-Founder",
-      image: "/images/team/co-founder-2.png",
+      image: "/images/team/co-founder.jpeg",
+      imagePosition: "object-[center_18%]",
     },
   ],
   values: [
@@ -495,64 +496,6 @@ export const MARKETING_PAGE = {
     "Skip the wasted spend and guesswork. Our growth systems help you go to market faster without compromising on quality.",
 };
 
-export const MARKETING_PRODUCTS = [
-  {
-    id: "instagram-growth",
-    title: "Instagram Growth System",
-    image: "/images/marketing/kk-resort-reel.png",
-    href: "/contact",
-    points: [
-      "Reels, stories, and campaign creatives built to grow local brands on Instagram — from hospitality villas to education.",
-      "Content calendars, festival drops, and offer posts designed to turn attention into enquiries and bookings.",
-      "Profile, bio, and highlight systems that make your page feel like a product, not a dump of photos.",
-    ],
-  },
-  {
-    id: "performance-funnels",
-    title: "Performance Ads & Funnels",
-    image: "/images/marketing/trinity-reel.png",
-    href: "/contact",
-    points: [
-      "Landing pages, retargeting, and ad creatives connected so the first tap can become a booked lead.",
-      "Campaigns structured around real business goals — awareness, site visits, or sales — not vanity reach.",
-      "Creative testing for property, pharmacy, and local service offers so spend goes to what converts.",
-    ],
-  },
-  {
-    id: "lead-generation",
-    title: "Lead Generation Engine",
-    image: "/images/marketing/zippymeds-reel.png",
-    href: "/contact",
-    points: [
-      "Paid ads, SEO, and content working together to fill your pipeline with people who can actually buy.",
-      "Offer-led creatives and trust posts that qualify interest before it hits your WhatsApp.",
-      "We focus on lead quality and cost per enquiry — not likes, views, or empty follower counts.",
-    ],
-  },
-  {
-    id: "brand-content",
-    title: "Brand Content Studio",
-    image: "/images/marketing/chihar-reel.png",
-    href: "/contact",
-    points: [
-      "Category storytelling for farms, schools, pharmacies, and real estate — shot and edited for Instagram.",
-      "Product education, founder stories, and customer proof that builds trust in Indian markets.",
-      "A repeatable content system so you are not starting from a blank page every week.",
-    ],
-  },
-  {
-    id: "analytics",
-    title: "Analytics & Reporting",
-    image: "/images/marketing/mv-academy-reel.png",
-    href: "/contact",
-    points: [
-      "Clear dashboards and regular reports so you always know what is working and where to invest next.",
-      "Tracking from ad click to WhatsApp, form, or app install — no black-box agencies.",
-      "Monthly reviews that turn numbers into the next set of creatives, offers, and budget calls.",
-    ],
-  },
-];
-
 export const MARKETING_CLIENTS = [
   {
     id: "kk-resort",
@@ -563,6 +506,11 @@ export const MARKETING_CLIENTS = [
     description:
       "Hospitality reels, festival campaigns, and booking creatives for KK Resorts villas on the Indore–Bhopal Highway.",
     image: "/images/marketing/kk-resort-reel.png",
+    points: [
+      "Hospitality reels, festival campaigns, and booking creatives for villa stays on the Indore–Bhopal Highway.",
+      "Offer posts and highlight systems built to turn Instagram attention into stay enquiries.",
+      "A content calendar for peak travel weekends so the page never goes quiet.",
+    ],
   },
   {
     id: "zippymeds",
@@ -573,6 +521,11 @@ export const MARKETING_CLIENTS = [
     description:
       "Pharmacy offers, product kits, and trust-building content for genuine medicines at lower prices.",
     image: "/images/marketing/zippymeds-reel.png",
+    points: [
+      "Pharmacy offer creatives and product kits that build trust for genuine medicines at better prices.",
+      "Price-led posts designed to send people to WhatsApp — not empty likes.",
+      "A repeatable content system a local pharmacy can actually keep up.",
+    ],
   },
   {
     id: "trinity",
@@ -583,6 +536,11 @@ export const MARKETING_CLIENTS = [
     description:
       "Property storytelling and lead-gen creatives for Trinity’s farmhouses and villa projects around Indore.",
     image: "/images/marketing/trinity-reel.png",
+    points: [
+      "Property storytelling for farmhouses, villas, and land around Indore.",
+      "Lead-gen creatives that turn Instagram views into site visits and calls.",
+      "Campaigns structured around real enquiries — not vanity reach.",
+    ],
   },
   {
     id: "chihar",
@@ -593,6 +551,11 @@ export const MARKETING_CLIENTS = [
     description:
       "Agri reels, farmer stories, and product education for hybrid seeds, fertilizers, and cattle feed.",
     image: "/images/marketing/chihar-reel.png",
+    points: [
+      "Agri reels and farmer stories for hybrid seeds, fertilizers, and cattle feed.",
+      "Product education that makes the brand feel trusted in the field.",
+      "Category storytelling shot and edited for Instagram, week after week.",
+    ],
   },
   {
     id: "mv-academy",
@@ -603,6 +566,11 @@ export const MARKETING_CLIENTS = [
     description:
       "Education branding and app discovery content for MV Academy’s smart learning programmes.",
     image: "/images/marketing/mv-academy-reel.png",
+    points: [
+      "Education branding and app discovery content for classes 9th to 12th.",
+      "Reels that explain programmes and push the learning app to parents and students.",
+      "A content system the academy can follow without starting from a blank page.",
+    ],
   },
 ];
 

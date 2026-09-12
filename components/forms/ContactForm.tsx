@@ -1,18 +1,11 @@
 "use client";
 
-import { useState, useEffect, type ReactNode } from "react";
-import emailjs from "@emailjs/browser";
-
-const EMAILJS_SERVICE_ID = "service_w5zminr";
-const EMAILJS_TEMPLATE_ID = "template_t9irjif";
-const EMAILJS_PUBLIC_KEY = "FrCKIalxAagxiviyp";
+import { useState, type ReactNode } from "react";
+import { CONTACT } from "@/lib/constants";
+import { getEmailJsErrorText, sendSiteEmail } from "@/lib/email";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
-
-  useEffect(() => {
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -25,23 +18,19 @@ export function ContactForm() {
     const subject = (formData.get("subject") as string) || "";
     const message = (formData.get("message") as string) || "";
 
-    const fullMessage = [`Email: ${email}`, `Phone: ${phone}`, `Subject: ${subject}`, "", message].join(
-      "\n"
-    );
-
     try {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        to_name: "Digi Cyrus",
-        from_name: name,
-        message: fullMessage,
+      await sendSiteEmail({
+        fromName: name,
+        fromEmail: email,
+        phone,
+        subject,
+        message,
       });
       setStatus("done");
       form.reset();
     } catch (err: unknown) {
       setStatus("error");
-      if (err && typeof err === "object" && "text" in err) {
-        console.error("EmailJS error:", (err as { text: string }).text);
-      }
+      console.error("EmailJS error:", getEmailJsErrorText(err) || err);
     }
   }
 
@@ -73,7 +62,15 @@ export function ContactForm() {
         />
       </div>
       {status === "done" && <p className="text-sm text-emerald-600">Thanks! We&apos;ll get back to you soon.</p>}
-      {status === "error" && <p className="text-sm text-red-500">Something went wrong. Please try again.</p>}
+      {status === "error" && (
+        <p className="text-sm text-red-500">
+          Couldn&apos;t send the form.{" "}
+          <a href={CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="underline">
+            WhatsApp us
+          </a>{" "}
+          or email {CONTACT.email}.
+        </p>
+      )}
       <div className="flex justify-end">
         <button
           type="submit"

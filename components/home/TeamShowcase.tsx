@@ -5,8 +5,15 @@ import { motion } from "framer-motion";
 import { SectionPill } from "@/components/ui/SectionPill";
 import { ABOUT } from "@/lib/constants";
 
+type TeamPerson = {
+  name: string;
+  role: string;
+  image: string;
+  imagePosition?: string;
+};
+
 export function TeamShowcase() {
-  const people = [...ABOUT.coFounders, ...ABOUT.team];
+  const people: TeamPerson[] = [...ABOUT.coFounders, ...ABOUT.team];
 
   return (
     <section className="bg-white py-20 sm:py-28">
@@ -28,7 +35,9 @@ export function TeamShowcase() {
                 src={member.image}
                 alt={member.name}
                 fill
-                className="object-cover transition duration-500 group-hover:scale-105"
+                className={`object-cover transition duration-500 group-hover:scale-105 ${
+                  member.imagePosition ?? "object-center"
+                }`}
                 sizes="(max-width: 768px) 50vw, 25vw"
               />
               <div className="absolute inset-x-3 bottom-3 rounded-2xl bg-white/95 px-3 py-2 text-center shadow-md">

@@ -2,12 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import emailjs from "@emailjs/browser";
 import { NAV_LINKS, SITE, CONTACT } from "@/lib/constants";
-
-const EMAILJS_SERVICE_ID = "service_w5zminr";
-const EMAILJS_TEMPLATE_ID = "template_t9irjif";
-const EMAILJS_PUBLIC_KEY = "FrCKIalxAagxiviyp";
+import { getEmailJsErrorText, sendSiteEmail } from "@/lib/email";
 
 export function Footer() {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
@@ -18,16 +14,17 @@ export function Footer() {
     const form = e.currentTarget;
     const email = (new FormData(form).get("email") as string) || "";
     try {
-      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        to_name: "Digi Cyrus",
-        from_name: email,
+      await sendSiteEmail({
+        fromName: email,
+        fromEmail: email,
+        subject: "Newsletter subscribe",
         message: `Newsletter subscribe request from ${email}`,
       });
       setStatus("done");
       form.reset();
-    } catch {
+    } catch (err: unknown) {
       setStatus("error");
+      console.error("EmailJS error:", getEmailJsErrorText(err) || err);
     }
   }
 

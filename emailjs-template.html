@@ -2,16 +2,25 @@
   EMAILJS DASHBOARD TEMPLATE
   =========================
   1. Go to https://dashboard.emailjs.com → Email Templates
-  2. Edit template_t9irjif (or create one and use its ID in ContactForm.tsx)
-  3. Set "To Email" to your receiving address (e.g. bhupendra.gupta@digicyrus.in)
-  4. Paste the content below into the HTML / Body section.
-  5. Template variables used by the contact form:
-     - {{to_name}}   = "Digi Cyrus" (recipient)
-     - {{from_name}} = Sender's name
-     - {{from_email}}= Sender's email (for reply)
-     - {{phone}}     = Sender's phone
-     - {{business_type}} = Startup / SME / D2C etc.
-     - {{message}}   = Full message (includes phone + business + message text)
+  2. Edit template_t9irjif (or create one and use its ID in lib/email.ts)
+  3. Settings (this is what causes HTTP 412 if wrong):
+     - To Email: bhupendra.gupta@digicyrus.in  (a real inbox, not a {{variable}})
+     - From Name: {{from_name}}
+     - From Email: leave as the connected Gmail / service email
+       (do NOT set From Email to {{from_email}} — Gmail rejects that with 412)
+     - Reply To: {{reply_to}}
+  4. If send still returns 412: Email Services → your Gmail service → Disconnect →
+     Connect Account, and enable "Send email on your behalf".
+  5. Paste the body below into the HTML / Body section.
+  6. Template variables used by the site:
+     - {{to_name}}     = "Digi Cyrus"
+     - {{from_name}}   = Sender's name
+     - {{from_email}}  = Sender's email
+     - {{reply_to}}    = Sender's email (for Reply-To)
+     - {{phone}}       = Sender's phone
+     - {{subject}}     = Subject line
+     - {{business_type}}= Same as subject (legacy field)
+     - {{message}}     = Message body
 -->
 
 <p>Hello <strong>{{to_name}}</strong>,</p>
@@ -31,12 +40,12 @@
     <td style="padding: 8px 0;">{{phone}}</td>
   </tr>
   <tr>
-    <td style="padding: 8px 0; color: #666;">Business type</td>
-    <td style="padding: 8px 0;">{{business_type}}</td>
+    <td style="padding: 8px 0; color: #666;">Subject</td>
+    <td style="padding: 8px 0;">{{subject}}</td>
   </tr>
 </table>
 
 <p style="margin-top: 16px; color: #333;">Message:</p>
-<p style="padding: 12px 16px; border-left: 4px solid #d4af37; background: #f8f8f8; font-style: italic; white-space: pre-line;">{{message}}</p>
+<p style="padding: 12px 16px; border-left: 4px solid #111; background: #f8f8f8; white-space: pre-line;">{{message}}</p>
 
 <p style="margin-top: 24px; color: #666;">— Digi Cyrus contact form</p>

@@ -9,7 +9,7 @@ import { MARKETING_PAGE } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Digital Marketing",
   description:
-    "Marketing that delivers real ROI. Instagram growth, funnels, lead generation, and analytics for Indian startups and brands.",
+    "Marketing portfolio for Indian brands — KK Resorts, ZippyMeds, Trinity Real Estate, Chihar Group, and MV Academy.",
 };
 
 export default function MarketingPage() {
